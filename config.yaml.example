@@ -1,0 +1,31 @@
+zulip:
+  site: "https://your-zulip-server.com"
+  email: "bot@your-zulip-server.com"
+  key: "your-zulip-api-key"
+
+telegram:
+  bot_token: "123456789:AAH_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  channel_id: "-1001234567890"
+
+filters:
+  streams: []  # ["general", "announcements"]
+  topics: []   # ["releases", "alerts"]
+
+# Rate limiting configuration
+rate_limit:
+  messages_per_second: 20  # Telegram allows ~30 msg/sec, be conservative
+  burst: 5                 # Allow short bursts
+  max_retries: 3           # Number of retry attempts
+  initial_backoff: 1s      # Initial retry delay
+  max_backoff: 60s         # Maximum retry delay
+
+# Attachment handling
+attachments:
+  enabled: true            # Forward attachments
+  max_size_mb: 20          # Max file size (Telegram: 20MB photos, 50MB docs)
+  download_timeout: 30s    # Timeout for downloading files
+
+# Message formatting options
+message_format:
+  # Include "View in Zulip" link at end of messages (default: false)
+  include_zulip_link: false
