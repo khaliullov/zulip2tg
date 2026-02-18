@@ -69,6 +69,10 @@ The bot will start listening for new messages on Zulip and forward them to the c
 
 ## Deploy on Debian
 
+Create user:
+
+    sudo useradd --system --no-create-home --shell /usr/sbin/nologin zulip2tg
+
 Create /etc/systemd/system/zulip2tg.service
 
     [Unit]
@@ -78,10 +82,16 @@ Create /etc/systemd/system/zulip2tg.service
     [Service]
     Type=simple
     User=zulip2tg
-    ExecStart=/opt/zulip2tg/zulip2tg -c /etc/zulip2tg/config.yaml
+    ExecStart=/usr/bin/zulip2tg -c /etc/zulip2tg/config.yaml
     Restart=on-failure
     RestartSec=10
     
     [Install]
     WantedBy=multi-user.target
+
+Start and enable:
+
+    sudo systemctl daemon-reload
+    sudo systemctl enable --now zulip2tg
+    sudo systemctl status zulip2tg
 
