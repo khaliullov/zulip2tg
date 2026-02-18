@@ -296,7 +296,7 @@ func (b *Bot) handleZulipMessage(_ context.Context, evt *events.Message) {
 				break
 			}
 		}
-		if !matched {
+		if matched {
 			return
 		}
 	}
@@ -310,7 +310,7 @@ func (b *Bot) handleZulipMessage(_ context.Context, evt *events.Message) {
 				break
 			}
 		}
-		if !matched {
+		if matched {
 			return
 		}
 	}
