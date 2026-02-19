@@ -20,8 +20,9 @@ type Config struct {
 		ChannelID string `yaml:"channel_id"`
 	} `yaml:"telegram"`
 	Filters struct {
-		Streams []string `yaml:"streams"`
-		Topics  []string `yaml:"topics"`
+		Streams     []string `yaml:"streams"`
+		Topics      []string `yaml:"topics"`
+		InvertLogic bool     `yaml:"invert_logic"`
 	} `yaml:"filters,omitempty"`
 	RateLimit struct {
 		MessagesPerSecond int           `yaml:"messages_per_second"`

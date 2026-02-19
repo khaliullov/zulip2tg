@@ -10,6 +10,7 @@ telegram:
 filters:
   streams: []  # ["general", "announcements"]
   topics: []   # ["releases", "alerts"]
+  invert_logic: false # If true, messages matching the filters will be excluded instead of included
 
 # Rate limiting configuration
 rate_limit:

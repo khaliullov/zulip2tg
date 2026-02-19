@@ -296,8 +296,14 @@ func (b *Bot) handleZulipMessage(_ context.Context, evt *events.Message) {
 				break
 			}
 		}
-		if matched {
-			return
+		if b.cfg.Filters.InvertLogic {
+			if matched {
+				return
+			}
+		} else {
+			if !matched {
+				return
+			}
 		}
 	}
 
@@ -310,8 +316,14 @@ func (b *Bot) handleZulipMessage(_ context.Context, evt *events.Message) {
 				break
 			}
 		}
-		if matched {
-			return
+		if b.cfg.Filters.InvertLogic {
+			if matched {
+				return
+			}
+		} else {
+			if !matched {
+				return
+			}
 		}
 	}
 
