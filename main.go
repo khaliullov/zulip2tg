@@ -19,6 +19,7 @@ import (
 	"github.com/wakumaku/go-zulip"
 	"github.com/wakumaku/go-zulip/realtime"
 	"github.com/wakumaku/go-zulip/realtime/events"
+	"github.com/wakumaku/go-zulip/users"
 	"golang.org/x/time/rate"
 )
 
@@ -209,6 +210,16 @@ func (b *Bot) Run(ctx context.Context) error {
 		Text: "🔄 Zulip2Telegram bridge started",
 	})
 
+	userSvc := users.NewService(b.zulipCli)
+	parrot, err := userSvc.GetUserMe(ctx)
+	if err != nil {
+		return err
+	}
+	if parrot.Email != b.email {
+		b.logger.Info("Using profile E-mail", "new_email", parrot.Email, "old_email", b.email)
+		b.email = parrot.Email
+	}
+
 	realtimeSvc := realtime.NewService(b.zulipCli)
 
 	const maxBackoff = 30 * time.Second
@@ -283,6 +294,9 @@ func (b *Bot) Run(ctx context.Context) error {
 func (b *Bot) handleZulipMessage(_ context.Context, evt *events.Message) {
 	// Skip self-messages
 	if evt.Message.SenderEmail == b.email {
+		return
+	}
+	if evt.Message.IsMeMessage {
 		return
 	}
 
